@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Getter;
 
 import java.time.LocalDate;
 
@@ -14,9 +15,11 @@ public class Book {
     private Long id;
     private String title;
     private String author;
+    // Getters and Setters
+    @Getter
     private String genre;
     private LocalDate publicationDate;
     private String isbn;
 
-    // Getters and Setters
+
 }

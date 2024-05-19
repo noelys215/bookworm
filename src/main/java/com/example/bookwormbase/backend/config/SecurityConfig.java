@@ -3,7 +3,9 @@ package com.example.bookwormbase.backend.config;
 import com.example.bookwormbase.backend.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -39,6 +41,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationProvider authenticationProvider) throws Exception {
         http.csrf(csrf -> csrf.disable()) // Disable CSRF protection
                 .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/login").permitAll() // Allow access to login endpoint
                         .requestMatchers("/api/users/**", "/api/books/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
@@ -49,5 +52,10 @@ public class SecurityConfig {
         http.authenticationProvider(authenticationProvider);
 
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 }

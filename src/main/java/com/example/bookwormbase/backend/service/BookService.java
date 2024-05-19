@@ -16,5 +16,16 @@ public class BookService {
         return bookRepository.findByTitleContaining(keyword);
     }
 
-    //Other crud operations
+    public Book createBook(Book book) {
+        return bookRepository.save(book);
+    }
+
+    public void deleteBook(Long id) {
+        bookRepository.deleteById(id);
+    }
+
+    public List<Book> findAll() {
+        return bookRepository.findAll();
+    }
+
 }

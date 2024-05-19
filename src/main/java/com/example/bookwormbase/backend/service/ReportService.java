@@ -6,12 +6,14 @@ import com.example.bookwormbase.backend.models.Review;
 import com.example.bookwormbase.backend.repository.BookRepository;
 import com.example.bookwormbase.backend.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 
+@Service
 public class ReportService {
     @Autowired
     private BookRepository bookRepository;

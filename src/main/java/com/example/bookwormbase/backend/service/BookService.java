@@ -12,11 +12,11 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    public List<Book> searchBooks(String keyword){
-        return bookRepository.findByTitleContaining(keyword);
+    public List<Book> getAllBooks() {
+        return bookRepository.findAll();
     }
 
-    public Book createBook(Book book) {
+    public Book saveBook(Book book) {
         return bookRepository.save(book);
     }
 
@@ -24,8 +24,9 @@ public class BookService {
         bookRepository.deleteById(id);
     }
 
-    public List<Book> findAll() {
-        return bookRepository.findAll();
+    public List<Book> searchBooks(String title) {
+        return bookRepository.findByTitleContaining(title);
     }
 
+    // Other methods for updating and managing books
 }

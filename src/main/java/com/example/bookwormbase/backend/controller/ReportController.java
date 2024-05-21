@@ -1,6 +1,5 @@
 package com.example.bookwormbase.backend.controller;
 
-import com.example.bookwormbase.backend.models.Report;
 import com.example.bookwormbase.backend.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

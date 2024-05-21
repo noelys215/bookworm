@@ -7,28 +7,30 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
+
     @Autowired
     private UserService userService;
 
-    @GetMapping
-    public List<User> getAllUsers() {
-        return userService.findAll();
-    }
-
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
     public User createUser(@RequestBody User user) {
-        return userService.createUser(user);
+        return userService.saveUser(user);
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
     }
+
+    @GetMapping("/{username}")
+    public Optional<User> getUserByUsername(@PathVariable String username) {
+        return userService.findByUsername(username);
+    }
+
+    // Other endpoints for managing users and roles
 }

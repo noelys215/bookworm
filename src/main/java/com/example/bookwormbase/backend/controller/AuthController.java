@@ -1,28 +1,37 @@
 package com.example.bookwormbase.backend.controller;
 
+import com.example.bookwormbase.backend.models.User;
+import com.example.bookwormbase.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
 
 @RestController
+@RequestMapping("/api/auth")
 public class AuthController {
 
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private UserService userService;
+
+    @PostMapping("/register")
+    public User registerUser(@RequestBody User user) {
+        return userService.saveUser(user);
+    }
 
     @PostMapping("/login")
-    public String login(@RequestBody AuthRequest authRequest) {
-        try {
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-            return "Login successful";
-        } catch (AuthenticationException e) {
-            return "Login failed: " + e.getMessage();
-        }
+    public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
+        // Implement your authentication logic here
+        String jwtToken = "test_token"; // Replace with actual token generation logic
+        return ResponseEntity.ok(Collections.singletonMap("token", jwtToken));
     }
 }
+
+class LoginRequest {
+    private String username;
+    private String password;
+
+    // Getters and setters
+}
+

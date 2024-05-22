@@ -1,5 +1,6 @@
 package com.example.bookwormbase.backend.service;
 
+import com.example.bookwormbase.backend.models.Role;
 import com.example.bookwormbase.backend.models.User;
 import com.example.bookwormbase.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +23,12 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    public User registerUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(Collections.singleton(Role.ADMIN)); // Set default role
+        return userRepository.save(user);
+    }
 
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);

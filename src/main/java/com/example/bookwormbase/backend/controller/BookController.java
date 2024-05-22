@@ -10,6 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
+
     @Autowired
     private BookService bookService;
 
@@ -35,3 +36,4 @@ public class BookController {
 
     // Other endpoints for updating and managing books
 }
+
